@@ -13,12 +13,7 @@ int push(stack_t **stack, unsigned int line_number)
     }
 
     num = atoi(numchar);
-    if (num == 0 && *numchar != '0')
-    {
-        fprintf(stderr, "L%u: usage: push integer\n", line_number);
-        exit(EXIT_FAILURE);
-    }
-    
+
     new_node = malloc(sizeof(stack_t));
     if (new_node == NULL)
     {
@@ -32,7 +27,7 @@ int push(stack_t **stack, unsigned int line_number)
     {
         (*stack)->prev = new_node;
     }
-    fprintf(stdout, "node: %d\n", new_node->n);
+    /*fprintf(stdout, "node: %d\n", new_node->n);*/
     *stack = new_node;
     return(0);
 }
@@ -86,10 +81,7 @@ while (getline(&buffer, &buffsize, file) != -1)
         pall(&stack);
     }
 }
-
-
-fprintf(stdout, "%u\n", line_number);
-
+/*fprintf(stdout, "%u\n", line_number);*/
 free(buffer);
 fclose(file);
 return (0);
