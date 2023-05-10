@@ -81,6 +81,10 @@ while (getline(&buffer, &buffsize, file) != -1)
         push(&stack, line_number);
     }
     /*fprintf(stdout, "%s\n", code);*/
+    else if (strcmp(code, "pall") == 0)
+    {
+        pall(&stack);
+    }
 }
 
 
