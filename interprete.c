@@ -2,7 +2,7 @@
 
 int _isdigit(int c)
 {
-	if (c >= 48 && c <= 57)
+	if (c >= '0' && c <= '9')
 	{
 		return (1);
 	}
@@ -19,10 +19,20 @@ int push(stack_t **stack, unsigned int line_number)
     stack_t *new_node = NULL;
 
     numchar = strtok(NULL, " \t\n");
-    if (numchar == NULL || !_isdigit(*numchar))
+
+    if (numchar == NULL)
     {
         fprintf(stderr, "L%u: usage: push integer\n", line_number);
         exit(EXIT_FAILURE);
+    }
+
+    for (int i = 0; numchar[i] != '\0'; i++)
+    {
+        if (!_isdigit(numchar[i]) && numchar[i] != '-')
+        {
+            fprintf(stderr, "L%u: usage: push integer\n", line_number);
+            exit(EXIT_FAILURE);
+        }
     }
 
     num = atoi(numchar);
@@ -40,7 +50,6 @@ int push(stack_t **stack, unsigned int line_number)
     {
         (*stack)->prev = new_node;
     }
-    /*fprintf(stdout, "node: %d\n", new_node->n);*/
     *stack = new_node;
     return(0);
 }
@@ -97,7 +106,6 @@ while (getline(&buffer, &buffsize, file) != -1)
     {
         push(&stack, line_number);
     }
-    /*fprintf(stdout, "%s\n", code);*/
     else if (strcmp(code, "pall") == 0)
     {
         pall(&stack);
@@ -108,7 +116,6 @@ while (getline(&buffer, &buffsize, file) != -1)
         exit(EXIT_FAILURE);
     }
 }
-/*fprintf(stdout, "%u\n", line_number);*/
 fclose(file);
 while (stack != NULL)
 {
