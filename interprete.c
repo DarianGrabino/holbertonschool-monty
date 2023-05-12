@@ -106,6 +106,11 @@ while (getline(&buffer, &buffsize, file) != -1)
             break;
         }
     }
+    else
+    {
+        fprintf(stderr, "L%u: unknown instruction %s\n", line_number, code);
+        exit(EXIT_FAILURE);
+    }
 }
 /*fprintf(stdout, "%u\n", line_number);*/
 fclose(file);
