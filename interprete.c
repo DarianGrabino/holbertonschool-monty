@@ -4,12 +4,13 @@ int push(stack_t **stack, unsigned int line_number)
 {
     char *numchar = NULL;
     int num = 0;
-    stack_t *new_node = NULL; 
+    stack_t *new_node = NULL;
 
     numchar = strtok(NULL, " \t\n");
-    if (numchar == NULL)
+    if (numchar == NULL || !isdigit(*numchar))
     {
         fprintf(stderr, "L%u: usage: push integer\n", line_number);
+        exit(EXIT_FAILURE);
     }
 
     num = atoi(numchar);
@@ -35,6 +36,13 @@ int push(stack_t **stack, unsigned int line_number)
 int pall(stack_t **stack)
 {
     stack_t *current = *stack;
+
+    if (current == NULL)
+    {
+        fprintf(stderr, "Error: The stack is empty\n");
+        return(-1);
+    }
+
 	while (current != NULL)
 	{
 		if (current->n)
@@ -64,13 +72,16 @@ if (file == NULL)
 
 char *buffer = NULL, *code = NULL;
 size_t buffsize = 0;
-
 unsigned int line_number = 0;
 
 while (getline(&buffer, &buffsize, file) != -1)
 {
     line_number++;
     code = strtok(buffer, " \t\n");
+    if (code == NULL)
+    {
+        continue;
+    }
     if (strcmp(code, "push") == 0)
     {
         push(&stack, line_number);
@@ -78,11 +89,20 @@ while (getline(&buffer, &buffsize, file) != -1)
     /*fprintf(stdout, "%s\n", code);*/
     else if (strcmp(code, "pall") == 0)
     {
-        pall(&stack);
+        if (pall(&stack) == -1)
+        {
+            break;
+        }
     }
 }
 /*fprintf(stdout, "%u\n", line_number);*/
-free(buffer);
 fclose(file);
+while (stack != NULL)
+{
+    stack_t *next_node = stack -> next;
+    free(stack);
+    stack = next_node;
+}
+free(buffer);
 return (0);
 }
