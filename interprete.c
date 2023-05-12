@@ -51,8 +51,7 @@ int pall(stack_t **stack)
 
     if (current == NULL)
     {
-        fprintf(stderr, "Error: The stack is empty\n");
-        return(-1);
+        return(0);
     }
 
 	while (current != NULL)
@@ -101,10 +100,7 @@ while (getline(&buffer, &buffsize, file) != -1)
     /*fprintf(stdout, "%s\n", code);*/
     else if (strcmp(code, "pall") == 0)
     {
-        if (pall(&stack) == -1)
-        {
-            break;
-        }
+        pall(&stack);
     }
     else
     {
