@@ -1,5 +1,17 @@
 #include "monty.h"
 
+int _isdigit(int c)
+{
+	if (c >= 48 && c <= 57)
+	{
+		return (1);
+	}
+	else
+	{
+		return (0);
+	}
+}
+
 int push(stack_t **stack, unsigned int line_number)
 {
     char *numchar = NULL;
@@ -7,7 +19,7 @@ int push(stack_t **stack, unsigned int line_number)
     stack_t *new_node = NULL;
 
     numchar = strtok(NULL, " \t\n");
-    if (numchar == NULL || !isdigit(*numchar))
+    if (numchar == NULL || !_isdigit(*numchar))
     {
         fprintf(stderr, "L%u: usage: push integer\n", line_number);
         exit(EXIT_FAILURE);
