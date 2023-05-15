@@ -104,7 +104,8 @@ int main(int argc, char **argv)
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE); }
 	char *buffer = NULL, *code = NULL;
-	size_t buffsize = 0, size_t line_number = 0;
+	size_t buffsize = 0;
+   	unsigned int line_number = 0;
 
 	while (getline(&buffer, &buffsize, file) != -1)
 	{
