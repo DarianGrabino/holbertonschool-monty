@@ -20,22 +20,19 @@ int _isdigit(int c)
  * push - function to add a new element to the top of the stack
  * @stack: pointer to pointer to the first element on the stack
  * @line_number: number of the current line
- * Return: 0 if the element is successfully added to the stack, or an error messange
+ * Return: 0 if the element is successfully added to the stack
 */
 int push(stack_t **stack, unsigned int line_number)
 {
     char *numchar = NULL;
     int num = 0;
     stack_t *new_node = NULL;
-
     numchar = strtok(NULL, " \t\n");
-
     if (numchar == NULL)
     {
         fprintf(stderr, "L%u: usage: push integer\n", line_number);
         exit(EXIT_FAILURE);
     }
-
     for (int i = 0; numchar[i] != '\0'; i++)
     {
         if (!_isdigit(numchar[i]) && numchar[i] != '-')
@@ -44,9 +41,7 @@ int push(stack_t **stack, unsigned int line_number)
             exit(EXIT_FAILURE);
         }
     }
-
     num = atoi(numchar);
-
     new_node = malloc(sizeof(stack_t));
     if (new_node == NULL)
     {
@@ -90,7 +85,7 @@ int pall(stack_t **stack)
 /**
  * main - program input
  * @argc: number of arguments passed on the command line
- * @argc: index of strings containing the arguments passed on the command line
+ * @argv: index of strings containing the arguments passed on the command line
  * Return: 0 if the program runs correctly
 */
 int main(int argc, char **argv)
