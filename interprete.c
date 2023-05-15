@@ -105,7 +105,7 @@ int main(int argc, char **argv)
 		exit(EXIT_FAILURE); }
 	char *buffer = NULL, *code = NULL;
 	size_t buffsize = 0;
-   	unsigned int line_number = 0;
+	unsigned int line_number = 0;
 
 	while (getline(&buffer, &buffsize, file) != -1)
 	{
