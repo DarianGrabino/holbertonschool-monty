@@ -63,7 +63,7 @@ int push(stack_t **stack, unsigned int line_number)
 /**
  * pall - print all elements in the stack
  * @stack: pointer to pointer to the first element on the stack
- * Return: 0 if the stack prints successfully, or if the stack is empty
+ * Return: 0 if the stack prints successfully
 */
 int pall(stack_t **stack)
 {
@@ -117,6 +117,16 @@ int main(int argc, char **argv)
 			push(&stack, line_number);
 		else if (strcmp(code, "pall") == 0)
 			pall(&stack);
+		else if(strcmp(code, "pint") == 0)
+			pint(&stack, line_number);
+		else if(strcmp(code, "pop") == 0)
+			pop(&stack, line_number);
+		else if(strcmp(code, "swap") == 0)
+			swap(&stack, line_number);
+		else if(strcmp(code, "add") == 0)
+			add(&stack, line_number);
+		else if(strcmp(code, "nop") == 0)
+			nop(&stack, line_number);
 		else
 		{
 			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, code);
