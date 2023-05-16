@@ -84,14 +84,24 @@ int pall(stack_t **stack)
 	}
 	return (0);
 }
+void free_all(stack_t *stack, char *buffer)
+{
+	while (stack != NULL)
+	{
+		stack_t *next_node = stack->next;
+
+		free(stack);
+		stack = next_node;
+	}
+	free(buffer);
+}
 /**
  * main - program input
  * @argc: number of arguments passed on the command line
  * @argv: index of strings containing the arguments passed on the command line
  * Return: 0 if the program runs correctly
 */
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
 	if (argc != 2)
 	{
 		fprintf(stderr, "USAGE: monty file\n");
@@ -99,16 +109,14 @@ int main(int argc, char **argv)
 	stack_t *stack = NULL;
 	FILE *file = fopen(argv[1], "r");
 
-	if (file == NULL)
-	{
+	if (file == NULL) {
 		fprintf(stderr, "Error: Can't open file %s\n", argv[1]);
 		exit(EXIT_FAILURE); }
 	char *buffer = NULL, *code = NULL;
 	size_t buffsize = 0;
 	unsigned int line_number = 0;
 
-	while (getline(&buffer, &buffsize, file) != -1)
-	{
+	while (getline(&buffer, &buffsize, file) != -1) {
 		line_number++;
 		code = strtok(buffer, " \t\n");
 		if (code == NULL)
@@ -127,18 +135,9 @@ int main(int argc, char **argv)
 			add(&stack, line_number);
 		else if(strcmp(code, "nop") == 0)
 			nop(&stack);
-		else
-		{
+		else {
 			fprintf(stderr, "L%u: unknown instruction %s\n", line_number, code);
 			exit(EXIT_FAILURE); } }
 	fclose(file);
-	while (stack != NULL)
-	{
-		stack_t *next_node = stack->next;
-
-		free(stack);
-		stack = next_node;
-	}
-	free(buffer);
-	return (0);
-}
+	free_all(stack, buffer);
+	return (0); }
