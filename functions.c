@@ -6,7 +6,7 @@
  * @line_number: number of the current line
  * Return: 0 if the first element is printed
 */
-int pint(stack_t **stack, unsigned int line_number)
+void pint(stack_t **stack, unsigned int line_number)
 {
     if (*stack == NULL)
     {
@@ -15,7 +15,6 @@ int pint(stack_t **stack, unsigned int line_number)
     }
 
     printf("%d\n", (*stack)->n);
-    return (EXIT_SUCCESS);
 }
 /**
  * pop - function to remove the top element from the stack
@@ -46,7 +45,7 @@ int pop(stack_t **stack, unsigned int line_number)
  * @line_number: number of the current line
  * Return: 0 if the two elements are interchanged
 */
-int swap(stack_t **stack, unsigned int line_number)
+void swap(stack_t **stack, unsigned int line_number)
 {
     if (*stack == NULL || (*stack)->next == NULL)
     {
@@ -57,8 +56,6 @@ int swap(stack_t **stack, unsigned int line_number)
     int temp = (*stack)->n;
     (*stack)->n = (*stack)->next->n;
     (*stack)->next->n = temp;
-
-    return (EXIT_SUCCESS);
 }
 /**
  * add - add the top two elements
