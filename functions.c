@@ -11,7 +11,7 @@ void pint(stack_t **stack, unsigned int line_number)
     if (*stack == NULL)
     {
         fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
-        return (EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 
     printf("%d\n", (*stack)->n);
@@ -50,7 +50,7 @@ void swap(stack_t **stack, unsigned int line_number)
     if (*stack == NULL || (*stack)->next == NULL)
     {
         fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
-        return (EXIT_FAILURE);
+        exit(EXIT_FAILURE);
     }
 
     int temp = (*stack)->n;
@@ -63,7 +63,7 @@ void swap(stack_t **stack, unsigned int line_number)
  * @line_number: number of the current line
  * Return: 0 if add the top two elements
 */
-void add(stack_t **stack, unsigned int line_number)
+int add(stack_t **stack, unsigned int line_number)
 {
     if (*stack == NULL || (*stack)->next == NULL)
     {
@@ -74,6 +74,7 @@ void add(stack_t **stack, unsigned int line_number)
     int sum = (*stack)->n + (*stack)->next->n;
     (*stack)->next->n = sum;
     pop(stack, line_number);
+	return (0);
 }
 /**
  * nop - does nothing
