@@ -1,4 +1,5 @@
 #include "monty.h"
+
 /**
  * pint - print the element at the top of the stack
  * @stack: pointer to pointer to the first element on the stack
@@ -14,7 +15,7 @@ int pint(stack_t **stack, unsigned int line_number)
     }
 
     printf("%d\n", (*stack)->n);
-    return (0);
+    return (EXIT_SUCCESS);
 }
 /**
  * pop - function to remove the top element from the stack
@@ -57,7 +58,7 @@ int swap(stack_t **stack, unsigned int line_number)
     (*stack)->n = (*stack)->next->n;
     (*stack)->next->n = temp;
 
-    return (0);
+    return (EXIT_SUCCESS);
 }
 /**
  * add - add the top two elements
